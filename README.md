@@ -17,3 +17,11 @@ React Study
 -- [x] TV Detail
 -- [x] Movie Detail
 -- [x] Search (Movies, TV)
+
+##Challenges
+
+- [] IDMP Link
+- [] Tabs inside of Movie / Show Deatils (YT Videos, Production Company & Countries)
+- [] Collection Link
+- [] /Collection Router
+- [] On TV show, Show seasons and creator

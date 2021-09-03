@@ -19,10 +19,11 @@ const globalStyles = createGlobalStyle`
         font-size: 12px;
         background-color:rgba(20,20,20,1);
         color: white;
-        padding-top: 80px;
+        padding-top: 50px;
+        transform: skew(-0.1deg);
     }
 
-    p, a, h1, h2, h3, h4, h5, h6 {
+    p, a, h1, h2, h3, h4, h5, h6, span{
         transform: skew(-0.1deg);
     }
 `;
