@@ -7,16 +7,24 @@ export default class extends React.Component {
     state = {
         movieResults: null,
         tvResults: null,
-        searchTerm: "code",
+        searchTerm: "",
         error: null,
         loading: false
     };
 
-    handlesubmit = () => {
+    handlesubmit = (event) => {
+        event.preventDefault();
         const { searchTerm } = this.state;
         if (searchTerm !== "") {
             this.searchByTerm();
         }
+    };
+
+    updateTerm = (event) => {
+        const { target: { value } } = event;
+        this.setState({
+            searchTerm: value
+        })
     }
 
     searchByTerm = async () => {
@@ -43,6 +51,7 @@ export default class extends React.Component {
             error={error}
             loading={loading}
             handlesubmit={this.handlesubmit}
+            updateTerm={this.updateTerm}
         />
     }
 }
