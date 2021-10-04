@@ -13,3 +13,16 @@ console.log(days + other);
 const b = [...days, ...other];
 
 console.log(b);
+
+const abc = {
+    "b": 2,
+    "c": 3,
+    "d": 4,
+    "e": {
+        "f": ["ddddd"],
+        "g": ["KKKKKK"]
+    }
+}
+
+
+console.log(abc.e.f);

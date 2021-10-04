@@ -22,6 +22,4 @@ React Study
 
 - [] IDMP Link
 - [] Tabs inside of Movie / Show Deatils (YT Videos, Production Company & Countries)
-- [] Collection Link
-- [] /Collection Router
 - [] On TV show, Show seasons and creator

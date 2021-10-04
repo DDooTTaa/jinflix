@@ -6,6 +6,7 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
         const { location: { pathname } } = props;
+        //const pathname
         this.state = {
             result: null,
             error: null,
@@ -15,16 +16,21 @@ export default class extends React.Component {
     }
 
     async componentDidMount() {
-        const { match: {
-            params: { id }
-        },
+        console.log(this.props);
+        const {
+            match: { params: { id } },
             history: { push },
             location: { pathname }
         } = this.props;
+        const pushFunc = this.props.history.push
+        console.log(this.props.history)
+        // const =(this.props).match ??
+        // const push = (this.props).history
+        // const location = (this.props).
         const { isMovie } = this.state;
         const parseId = parseInt(id);
         if (isNaN(parseId)) {
-            return push("/");
+            return pushFunc("/");
         }
         let result = null;
         try {
