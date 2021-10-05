@@ -2,24 +2,24 @@ React Study
 
 ## Screens
 
-[x] Home
-[x] TV Shows
-[x] Search Route
-[x] Detail
+- [x] Home
+- [x] TV Shows
+- [x] Search Route
+- [x] Detail
 
 ## API Verbs
 
--- [x] Now Playing (Movie)
--- [x] Upcoming (Movie)
--- [x] Top rated (TV)
--- [x] Popular (TV, Movie)
--- [x] Airing Today (TV)
--- [x] TV Detail
--- [x] Movie Detail
--- [x] Search (Movies, TV)
+- [x] Now Playing (Movie)
+- [x] Upcoming (Movie)
+- [x] Top rated (TV)
+- [x] Popular (TV, Movie)
+- [x] Airing Today (TV)
+- [x] TV Detail
+- [x] Movie Detail
+- [x] Search (Movies, TV)
 
 ##Challenges
 
--- [x] IDMP Link
--- [x] Tabs inside of Movie / Show Deatils (YT Videos, Production Company & Countries)
--- [x] On TV show, Show seasons and creator
+- [x] IDMP Link
+- [x] Tabs inside of Movie / Show Deatils (YT Videos, Production Company & Countries)
+- [x] On TV show, Show seasons and creator
