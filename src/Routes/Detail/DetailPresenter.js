@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import "bootstrap/dist/css/bootstrap.min.css";
+import YouTube from "react-youtube";
+import SeasonDetail from "../../Components/SeasonDetail";
+
 
 const Container = styled.div`
 height: calc(100vh);
@@ -57,11 +63,15 @@ const Title = styled.h3`
 `;
 
 const ItemContainer = styled.div`
+    font-size: 18px;
     margin: 20px 0px;
+    color: white;
+    border-bottom: 1px solid white;
 `;
 
 const Item = styled.span`
 font-size: 18px;
+font-color: white;
 `;
 
 const Divider = styled.span`
@@ -74,10 +84,48 @@ const Overview = styled.p`
     opacity: 0.9;
     line-height: 1.5;
     width: 50%;
+    padding-bottom:32px;
 `;
 
-const DefaultPresenter = ({ result, error, loading }) =>
-    loading ? (
+const PItem = styled.span`
+font-size:32px`;
+
+
+const Logo = styled.div`
+  background-image: url(${(props) => props.bgImage});
+  width: 200px;
+  display:flex;
+  height: 70px;
+  background-size: 100% 100%;
+  padding-bottom: 20px;
+`;
+
+const Produce = styled.div`
+display: flex`;
+
+const ALink = styled.a`
+font-size: 18px;`;
+
+const SeasonStyle = styled.div`
+margin-top: 30px;
+display: grid;
+grid-template-columns:repeat(auto-fill, 125px);
+    grid-gap: 10px;`;
+// const SeasonDetail = styled.div`
+// font-size: 18px;
+// margin: 18px`;
+
+const DefaultPresenter = ({ result, error, loading }) => {
+    const opts = {
+        height: "390",
+        width: "640",
+        playerVars: {
+            autoplay: 0,
+        },
+    };
+
+
+    return loading ? (
         <>
             <Helmet>
                 <title>Loading | JinFlix</title>
@@ -100,30 +148,101 @@ const DefaultPresenter = ({ result, error, loading }) =>
                     <Title>
                         {result.original_title ? result.original_title : result.original_name}
                     </Title>
-                    <ItemContainer>
-                        <Item>
-                            {result.release_date ? result.release_date : result.first_air_date}
-                        </Item>
-                        <Divider>◾</Divider>
-                        <Item>
-                            {result.runtime ? result.runtime : result.episode_run_time} min
-                        </Item>
-                        <Divider>◾</Divider>
-                        <Item>
-                            {result.genres &&
-                                result.genres.map((genre, index) =>
-                                    index === result.genres.length - 1
-                                        ? `${genre.name} `
-                                        : `${genre.name} / `
+                    <Tabs
+                        defaultActiveKey="home"
+                        transition={false}
+                        id="noanim-tab-example">
+                        <Tab eventKey="home" title="INFO">
+                            <ItemContainer>
+                                <Item>
+                                    {result.release_date ? result.release_date : result.first_air_date}
+                                </Item>
+                                <Divider>◾</Divider>
+                                <Item>
+                                    {result.runtime ? result.runtime : result.episode_run_time} min
+                                </Item>
+                                <Divider>◾</Divider>
+                                <Item>
+                                    {result.genres &&
+                                        result.genres.map((genre, index) =>
+                                            index === result.genres.length - 1
+                                                ? `${genre.name} `
+                                                : `${genre.name} / `
+                                        )}
+                                </Item>
+                            </ItemContainer>
+                            <Overview>{result.overview}</Overview>
+                            <ALink href={`https://www.imdb.com/title/${result.imdb_id}/`}>https://www.imdb.com/title/{result.imdb_id}</ALink>
+
+                        </Tab>
+                        <Tab eventKey="profile" title="Producer">
+                            <ItemContainer>
+                                COUNTRY
+                            </ItemContainer>
+                            <PItem>
+                                {result.production_countries &&
+                                    result.production_countries.map((country, index) =>
+                                        result.production_countries.length !== index + 1
+                                            ? `${country.name}, `
+                                            : country.name
+                                    )}
+                            </PItem>
+                            <ItemContainer>
+                                Produce By
+                            </ItemContainer>
+                            <Produce>
+                                {result.production_companies.map((logopath) =>
+                                    logopath.logo_path ? (
+                                        <Logo
+                                            bgImage={`https://image.tmdb.org/t/p/original${logopath.logo_path}`}
+                                        />
+                                    ) : (
+                                        console.log(logopath.logo_path)
+                                    )
                                 )}
-                        </Item>
-                    </ItemContainer>
-                    <Overview>{result.overview}</Overview>
+                            </Produce>
+                            <ItemContainer>
+                                Clip
+                            </ItemContainer>
+                            {result.videos.results[0] ? (
+                                <YouTube
+                                    videoId={
+                                        result.videos.results[0]
+                                            ? result.videos.results[0].key
+                                            : console.log(result.videos.results)
+                                    }
+                                    opts={opts}
+                                />
+                            ) : (
+                                <h5>관련 영상클립이 없습니다 ! </h5>
+                            )}
+                        </Tab>
+                        {result.seasons ?
+                            <Tab eventKey="seasons" title="Season">
+                                <SeasonStyle>
+                                    {result.seasons.map((season) =>
+                                        season.name ? (
+                                            <SeasonDetail
+                                                imageUrl={season.poster_path}
+                                                name={season.name}
+                                                character_name={
+                                                    season.air_date && season.air_date.substring(0, 4)
+                                                }
+                                            />
+                                        ) : (
+                                            console.log(season.profile_path)
+                                        )
+                                    )}
+                                </SeasonStyle>
+                            </Tab> : (console.log("ERROR"))}
+
+                    </Tabs>
+
                 </Data>
             </Content>
-        </Container>
+        </Container >
     );
-
+}
 
 DefaultPresenter.propTypes = {
     result: PropTypes.object,

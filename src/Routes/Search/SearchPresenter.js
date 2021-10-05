@@ -24,7 +24,7 @@ const searchPresenter = ({ movieResults, tvResults, searchTerm, error, loading, 
             <title>Search | JinFlix</title>
         </Helmet>
         <Form onSubmit={handlesubmit}>
-            <Input placeholder="Search Movie or TV show..." type="text" value={searchTerm}
+            <Input placeholder="Search Movie or TV show (Only English)" type="text" value={searchTerm}
                 onChange={updateTerm}>
             </Input>
         </Form>

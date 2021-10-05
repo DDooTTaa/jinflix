@@ -2,10 +2,10 @@ React Study
 
 ## Screens
 
-[] Home
-[] TV Shows
-[] Search Route
-[] Detail
+[x] Home
+[x] TV Shows
+[x] Search Route
+[x] Detail
 
 ## API Verbs
 
@@ -20,6 +20,6 @@ React Study
 
 ##Challenges
 
-- [] IDMP Link
-- [] Tabs inside of Movie / Show Deatils (YT Videos, Production Company & Countries)
-- [] On TV show, Show seasons and creator
+-- [x] IDMP Link
+-- [x] Tabs inside of Movie / Show Deatils (YT Videos, Production Company & Countries)
+-- [x] On TV show, Show seasons and creator
