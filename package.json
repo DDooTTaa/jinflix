@@ -35,7 +35,7 @@
       "react-app/jest"
     ]
   },
-  "homepage": "https://ddoottaa.github.io/jinflix",
+  "homepage": "https://focused-northcutt-a23b52.netlify.app",
   "browserslist": {
     "production": [
       ">0.2%",
