@@ -9,7 +9,7 @@ React Study
 
 ## API Verbs
 
--- [x] Now Playing (Movie)
+- [x] Now Playing (Movie)
 -- [x] Upcoming (Movie)
 -- [x] Top rated (TV)
 -- [x] Popular (TV, Movie)
