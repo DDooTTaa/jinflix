@@ -23,3 +23,9 @@ React Study
 - [x] IDMP Link
 - [x] Tabs inside of Movie / Show Deatils (YT Videos, Production Company & Countries)
 - [x] On TV show, Show seasons and creator
+
+##앞으로의 과제
+
+- [] 훅으로 바꾸기
+- [] 타입스크립트로 바꾸기
+- [] 리덕스 이해하기
