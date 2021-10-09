@@ -32,4 +32,4 @@ React Study
 
 --ERROR
 
-TV detail 이상하게 받아오는 에러 발생
+TV detail 이상하게 받아오는 에러 발생 - isMovie를 useState 로 처리했을때 기본값 변경 문제 - 해결 완료

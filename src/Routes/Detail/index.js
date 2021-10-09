@@ -122,7 +122,7 @@ const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } })
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isMovie, setIsMovie] = useState(true);
+    const [isMovie, setIsMovie] = useState(pathname.includes("/movie"));
 
     const getDetailDataFromApi = async () => {
         const parsedId = parseInt(params.id);
@@ -130,7 +130,6 @@ const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } })
           return push("/");
         } */
         let result = null;
-        setIsMovie(pathname.includes("/movie/"));
         try {
             if (isMovie) {
                 ({ data: result } = await moviesApi.movieDetail(parsedId));
@@ -157,6 +156,7 @@ const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } })
         },
     };
 
+    console.log(result);
 
     return loading ? (
         <>
