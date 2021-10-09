@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
@@ -8,7 +8,8 @@ import Tab from "react-bootstrap/Tab";
 import "bootstrap/dist/css/bootstrap.min.css";
 import YouTube from "react-youtube";
 import SeasonDetail from "../../Components/SeasonDetail";
-
+import { moviesApi, tvApi } from "../../api.js";
+import { useParams } from "react-router"
 
 const Container = styled.div`
 height: calc(100vh);
@@ -115,7 +116,39 @@ grid-template-columns:repeat(auto-fill, 125px);
 // font-size: 18px;
 // margin: 18px`;
 
-const DefaultPresenter = ({ result, error, loading }) => {
+const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } }) => {
+    const params = useParams();
+    console.log(pathname);
+    const [result, setResult] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [isMovie, setIsMovie] = useState(true);
+
+    const getDetailDataFromApi = async () => {
+        const parsedId = parseInt(params.id);
+        /* if (isNaN(parsedId)) {
+          return push("/");
+        } */
+        let result = null;
+        setIsMovie(pathname.includes("/movie/"));
+        try {
+            if (isMovie) {
+                ({ data: result } = await moviesApi.movieDetail(parsedId));
+            } else {
+                ({ data: result } = await tvApi.showDetail(parsedId));
+            }
+            setResult(result);
+        } catch {
+            setError("데이터를 찾을 수 없습니다.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getDetailDataFromApi();
+    }, []);
+
     const opts = {
         height: "390",
         width: "640",
