@@ -4,9 +4,11 @@ const api = axios.create({
     baseURL: "https://api.themoviedb.org/3/",
     params: {
         api_key: "10923b261ba94d897ac6b81148314a3f",
-        laungage: "en-US"
+        language: "ko"
     }
 })
+
+
 
 export const moviesApi = {
     nowPlaying: () => api.get("movie/now_playing"),
@@ -41,4 +43,13 @@ export const tvApi = {
         }
     })
 
+}
+
+export const multiSearchApi = {
+    multiSearch: (term) => api.get("search/multi", {
+        params: {
+            query: term,
+            imclued_adult: true
+        }
+    })
 }

@@ -9,7 +9,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import YouTube from "react-youtube";
 import SeasonDetail from "../../Components/SeasonDetail";
 import { moviesApi, tvApi } from "../../api.js";
-import { useParams } from "react-router"
+import { useParams } from "react-router";
+import { withBaseIcon } from "react-icons-kit";
+import { undo2 } from 'react-icons-kit/icomoon/undo2';
+
+const IconContainer = withBaseIcon({
+    size: 28,
+    style: { color: "wihte" }
+});
 
 const Container = styled.div`
 height: calc(100vh);
@@ -48,7 +55,7 @@ background-image: url(${props => props.bgImage});
 background-position: center center;
 background-size: cover;
 filter: blur(5px);
-opacitiy: 0.5;
+opacitiy: 1;
 z-index: 0;
 `
 
@@ -111,16 +118,25 @@ const SeasonStyle = styled.div`
 margin-top: 30px;
 display: grid;
 grid-template-columns:repeat(auto-fill, 125px);
-    grid-gap: 10px;`;
-// const SeasonDetail = styled.div`
-// font-size: 18px;
-// margin: 18px`;
+grid-gap: 10px;`;
 
-const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } }) => {
+const BackButton = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+position: absolute;
+width: 60px;
+height: 60px;
+background-color: #2A9D8F;
+top: -2%;
+left: 97%;
+`;
+
+
+const DefaultPresenter = ({ location: { pathname } }) => {
     const params = useParams();
-    console.log(pathname);
     const [result, setResult] = useState(null);
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isMovie, setIsMovie] = useState(pathname.includes("/movie"));
 
@@ -137,8 +153,8 @@ const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } })
                 ({ data: result } = await tvApi.showDetail(parsedId));
             }
             setResult(result);
-        } catch {
-            setError("데이터를 찾을 수 없습니다.");
+        } catch (e) {
+            console.log(e);
         } finally {
             setLoading(false);
         }
@@ -168,7 +184,7 @@ const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } })
     ) : (
         <Container>
             <Helmet>
-                <title> {result.original_title ? result.original_title : result.original_name} | JinFlix</title>
+                <title> {result.title ? result.title : result.name} | JinFlix</title>
             </Helmet>
             <Backdrop
                 bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`} />
@@ -178,8 +194,10 @@ const DefaultPresenter = ({ location: { pathname }, match: { params: { id } } })
                         `https://image.tmdb.org/t/p/original${result.poster_path}` :
                         require("../../assets/noPosterSmall.jpg").default} />
                 <Data>
+                    <a href="javascript:history.go(-1);"> <BackButton ><IconContainer icon={undo2} />
+                    </BackButton> </a>
                     <Title>
-                        {result.original_title ? result.original_title : result.original_name}
+                        {result.title ? result.title : result.name}
                     </Title>
                     <Tabs
                         defaultActiveKey="home"
