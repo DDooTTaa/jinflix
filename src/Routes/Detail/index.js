@@ -15,7 +15,7 @@ import { undo2 } from 'react-icons-kit/icomoon/undo2';
 
 const IconContainer = withBaseIcon({
     size: 28,
-    style: { color: "wihte" }
+    style: { color: "black" }
 });
 
 const Container = styled.div`
@@ -128,11 +128,13 @@ border-radius: 50%;
 position: absolute;
 width: 60px;
 height: 60px;
-background-color: #2A9D8F;
+background-color: white;
 top: -2%;
 left: 97%;
+
 `;
 
+const ButtonContainer = styled.div``;
 
 const DefaultPresenter = ({ location: { pathname } }) => {
     const params = useParams();
@@ -194,8 +196,10 @@ const DefaultPresenter = ({ location: { pathname } }) => {
                         `https://image.tmdb.org/t/p/original${result.poster_path}` :
                         require("../../assets/noPosterSmall.jpg").default} />
                 <Data>
-                    <a href="javascript:history.go(-1);"> <BackButton ><IconContainer icon={undo2} />
-                    </BackButton> </a>
+                    <ButtonContainer onMouseOver={((event) => { console.log("zzz") })}>
+                        <a href="javascript:history.go(-1);"> <BackButton ><IconContainer icon={undo2} />
+                        </BackButton> </a>
+                    </ButtonContainer>
                     <Title>
                         {result.title ? result.title : result.name}
                     </Title>
