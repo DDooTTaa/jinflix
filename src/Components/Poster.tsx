@@ -7,7 +7,7 @@ const Container = styled.div`
 font-size: 12px;`;
 
 
-const Image = styled.div`
+const Image = styled.div<{bgUrl:string}>`
 background-image: url(${props => props.bgUrl});
 height: 180px;
 background-size: cover;
@@ -48,7 +48,15 @@ font - size: 10px;
 color: rgba(255, 255, 255, 0.5);
 `;
 
-const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
+interface PosterProp {
+    id: number,
+    imageUrl: string,
+    title: string,
+    rating: number,
+    year: string,
+    isMovie: boolean
+}
+const Poster:React.FC<PosterProp> = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
     <Link to={isMovie ? `/movie/${id}` : `/tv/${id}`}>
         <Container>
             <ImageContainer>
@@ -64,15 +72,5 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
         </Container>
     </Link>
 )
-
-
-Poster.propTypes = {
-    id: PropTypes.number.isRequired,
-    imageUrl: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    rating: PropTypes.number,
-    year: PropTypes.string,
-    isMovie: PropTypes.bool
-}
 
 export default Poster;

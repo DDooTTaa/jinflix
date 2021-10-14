@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React, { FunctionComponent } from "react";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = styled.header`
@@ -21,7 +21,7 @@ const List = styled.ul`
     display: flex;
 `;
 
-const Item = styled.li`
+const Item = styled.li< {current: boolean}>`
 width: 50px;
 height: 50px;
 text-align: center;
@@ -36,7 +36,7 @@ align-items: center;
 justify-content: center;
 `;
 
-const HeaderC = ({ location: { pathname } }) => (
+const HeaderC: React.FunctionComponent<RouteComponentProps> = ({ location: { pathname } }) => (
     <Header>
         <List>
             <Item current={pathname === "/"}>

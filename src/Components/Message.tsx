@@ -9,21 +9,21 @@ justify-content: center;
 padding-top: 50px;
 `;
 
-const Text = styled.span`
+const Text = styled.span<{color:String}>`
 color: ${props => props.color};
 font-weight: 600;
 font-size: 24px;
 `;
 
-const Message = ({ text, color }) => (
+interface mes {
+    text:string,
+    color:string
+}
+const Message:React.FC<mes> = ({ text, color }) => (
     <Container>
         <Text color={color}>{text}
         </Text>
     </Container>
 );
-
-Message.propTypes = {
-    text: PropTypes.string.isRequired
-}
 
 export default Message;

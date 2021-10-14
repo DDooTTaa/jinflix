@@ -8,7 +8,7 @@ import Tab from "react-bootstrap/Tab";
 import "bootstrap/dist/css/bootstrap.min.css";
 import YouTube from "react-youtube";
 import SeasonDetail from "../../Components/SeasonDetail";
-import { moviesApi, tvApi } from "../../api.js";
+import { moviesApi, tvApi } from "../../api";
 import { useParams } from "react-router";
 import { withBaseIcon } from "react-icons-kit";
 import { undo2 } from 'react-icons-kit/icomoon/undo2';

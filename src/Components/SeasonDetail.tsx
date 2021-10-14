@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -7,7 +6,7 @@ const Container = styled.div`
 `;
 
 
-const Image = styled.div`
+const Image = styled.div<{bgUrl:string}>`
     background-image:url(${props => props.bgUrl});
     width: 110px;
     height:180px;
@@ -33,9 +32,14 @@ const ImageContainer = styled.div`
     position:relative;
 `;
 
-const Data = styled.div`
-`;
-const Poster = ({ imageUrl, name, character_name }) =>
+
+interface PosterType {
+    imageUrl : string,
+    name : string,
+    character_name : string
+}
+
+const Poster:React.FC<PosterType> = ({ imageUrl, name, character_name }) =>
     <Container>
         <ImageContainer>
             <Image bgUrl={
@@ -45,15 +49,7 @@ const Poster = ({ imageUrl, name, character_name }) =>
             <Name>* {name}</Name>
             <Character_name>- {character_name}</Character_name>
         </ImageContainer>
-        <Data>
-        </Data>
     </Container>
 
-
-Poster.propTypes = {
-    imageUrl: PropTypes.string,
-    name: PropTypes.string,
-    character_name: PropTypes.string
-}
 
 export default Poster;
