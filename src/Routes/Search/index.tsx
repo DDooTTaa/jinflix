@@ -21,22 +21,22 @@ width:100%;`;
 
 const SearchPresenter = () => {
 
-    const [movieResults, setMovieResults] = useState();
-    const [tvResults, setTvResults] = useState();
-    const [searchTerm, setSearchTerm] = useState("");
+    const [movieResults, setMovieResults] = useState<any>();
+    const [tvResults, setTvResults] = useState<any>();
+    const [searchTerm, setSearchTerm] = useState<any>("");
     const [error, setError] = useState();
-    const [loading, setLoading] = useState();
-    const [results, setResults] = useState();
+    const [loading, setLoading] = useState<Boolean>();
+    const [results, setResults] = useState<any>();
 
 
-    const handlesubmit = (event) => {
+    const handlesubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         if (searchTerm !== "") {
             searchByTerm()
         }
     };
 
-    const updateTerm = (event) => {
+    const updateTerm = (event: { target: { value: any; }; }) => {
         const { target: { value } } = event;
         setSearchTerm(value);
     }
@@ -77,7 +77,7 @@ const SearchPresenter = () => {
 
                 {results && results.length > 0 && (
                     <Section title="Movie Results">
-                        {results.map(movie => (
+                        {results.map((movie: { id: number; poster_path: string; title: string; name: string; vote_average: number; release_date: string; }) => (
                             <Poster
                                 key={movie.id}
                                 id={movie.id}
@@ -93,15 +93,16 @@ const SearchPresenter = () => {
                 )}
                 {results && results.length > 0 && (
                     <Section title="tv Results">
-                        {results.map(show => (
+                        {results.map((show: { id: number; poster_path: string; name: string; vote_average: number; first_air_date: string; }) => (
                             <Poster
                                 key={show.id}
                                 id={show.id}
                                 imageUrl={show.poster_path}
                                 title={show.name}
                                 rating={show.vote_average}
-                                year={show.first_air_date}
-                            // year={movie.release_date.substring(0,4)}
+                                year={show.first_air_date} 
+                                isMovie={false}                            
+                                // year={movie.release_date.substring(0,4)}
                             />
                         ))}
                     </Section>
@@ -118,14 +119,5 @@ const SearchPresenter = () => {
     );
 }
 
-SearchPresenter.propTypes = {
-    movieResults: PropTypes.array,
-    tvResults: PropTypes.array,
-    searchTerm: PropTypes.string,
-    error: PropTypes.string,
-    loading: PropTypes.bool.isRequired,
-    handlesubmit: PropTypes.func.isRequired,
-    updateTerm: PropTypes.func.isRequired
-};
 
 export default SearchPresenter;

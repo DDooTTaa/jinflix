@@ -33,21 +33,21 @@ const ImageContainer = styled.div`
 `;
 
 
-interface PosterType {
+interface Props {
     imageUrl : string,
     name : string,
     character_name : string
 }
 
-const Poster:React.FC<PosterType> = ({ imageUrl, name, character_name }) =>
+const Poster = (props : Props) =>
     <Container>
         <ImageContainer>
             <Image bgUrl={
-                imageUrl
-                    ? `https://image.tmdb.org/t/p/original${imageUrl}`
+                props.imageUrl
+                    ? `https://image.tmdb.org/t/p/original${props.imageUrl}`
                     : require("../assets/noPosterSmall.jpg").default} />
-            <Name>* {name}</Name>
-            <Character_name>- {character_name}</Character_name>
+            <Name>* {props.name}</Name>
+            <Character_name>- {props.character_name}</Character_name>
         </ImageContainer>
     </Container>
 

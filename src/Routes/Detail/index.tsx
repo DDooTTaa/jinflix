@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader";
@@ -12,6 +11,7 @@ import { moviesApi, tvApi } from "../../api";
 import { useParams } from "react-router";
 import { withBaseIcon } from "react-icons-kit";
 import { undo2 } from 'react-icons-kit/icomoon/undo2';
+import {RouteComponentProps } from "react-router-dom";
 
 const IconContainer = withBaseIcon({
     size: 28,
@@ -35,7 +35,7 @@ const Content = styled.div`
     border-radius: 10px;
 `;
 
-const Cover = styled.div`
+const Cover = styled.div<{bgImage : string}>`
     width: 30%;
     background-image: url(${props => props.bgImage});
 background-position: center center;
@@ -45,7 +45,7 @@ border-radius: 5px;
 `;
 
 
-const Backdrop = styled.div`
+const Backdrop = styled.div<{bgImage : string}>`
 position: absolute;
 top: 0px;
 left: 0;
@@ -99,7 +99,7 @@ const PItem = styled.span`
 font-size:32px`;
 
 
-const Logo = styled.div`
+const Logo = styled.div<{bgImage : string}>`
   background-image: url(${(props) => props.bgImage});
   width: 200px;
   display:flex;
@@ -136,9 +136,42 @@ left: 97%;
 
 const ButtonContainer = styled.div``;
 
-const DefaultPresenter = ({ location: { pathname } }) => {
-    const params = useParams();
-    const [result, setResult] = useState(null);
+interface ResType {
+    title?:string,
+    name?: string,
+    poster_path?:string,
+    release_date?:string,
+    first_air_date?:string,
+    runtime?:number,
+    episode_run_time?:number,
+    genres: Array<string>,
+    overview?:string,
+    imdb_id?: number,
+    production_countries?: any,
+    production_companies?: any,
+    videos?: any,
+    seasons?:  Array<string>,
+    backdrop_path?: string
+
+}
+const DefaultPresenter: React.FunctionComponent<RouteComponentProps> = ({ location: { pathname } }) => {
+    const params = useParams<{id:string}>();
+    const [result, setResult] = useState<ResType>({
+        title: "",
+        name: "",
+        poster_path: "",
+        release_date:"",
+        first_air_date:"",
+        runtime:0,
+        episode_run_time:0,
+        genres: [],
+        overview:"",
+        imdb_id: 0,
+        production_countries: "",
+        production_companies: "",
+        videos: [],
+        seasons: [],
+        backdrop_path: ""});
     const [loading, setLoading] = useState(true);
     const [isMovie, setIsMovie] = useState(pathname.includes("/movie"));
 
@@ -147,7 +180,7 @@ const DefaultPresenter = ({ location: { pathname } }) => {
         /* if (isNaN(parsedId)) {
           return push("/");
         } */
-        let result = null;
+        let result:ResType;
         try {
             if (isMovie) {
                 ({ data: result } = await moviesApi.movieDetail(parsedId));
@@ -166,15 +199,13 @@ const DefaultPresenter = ({ location: { pathname } }) => {
         getDetailDataFromApi();
     }, []);
 
-    const opts = {
+    const opts:any = {
         height: "390",
         width: "640",
         playerVars: {
             autoplay: 0,
         },
     };
-
-    console.log(result);
 
     return loading ? (
         <>
@@ -219,7 +250,7 @@ const DefaultPresenter = ({ location: { pathname } }) => {
                                 <Divider>◾</Divider>
                                 <Item>
                                     {result.genres &&
-                                        result.genres.map((genre, index) =>
+                                        result.genres.map((genre:any, index:number) =>
                                             index === result.genres.length - 1
                                                 ? `${genre.name} `
                                                 : `${genre.name} / `
@@ -235,9 +266,8 @@ const DefaultPresenter = ({ location: { pathname } }) => {
                                 COUNTRY
                             </ItemContainer>
                             <PItem>
-                                {result.production_countries &&
-                                    result.production_countries.map((country, index) =>
-                                        result.production_countries.length !== index + 1
+                                {    result?.production_countries.map((country:any, index:number, countries : any) =>
+                                        countries.length !== index + 1
                                             ? `${country.name}, `
                                             : country.name
                                     )}
@@ -246,13 +276,13 @@ const DefaultPresenter = ({ location: { pathname } }) => {
                                 Produce By
                             </ItemContainer>
                             <Produce>
-                                {result.production_companies.map((logopath) =>
+                                {result?.production_companies.map((logopath:any) =>
                                     logopath.logo_path ? (
                                         <Logo
                                             bgImage={`https://image.tmdb.org/t/p/original${logopath.logo_path}`}
                                         />
                                     ) : (
-                                        console.log(logopath.logo_path)
+                                        console.log("Not Logo")
                                     )
                                 )}
                             </Produce>
@@ -275,7 +305,7 @@ const DefaultPresenter = ({ location: { pathname } }) => {
                         {result.seasons ?
                             <Tab eventKey="seasons" title="Season">
                                 <SeasonStyle>
-                                    {result.seasons.map((season) =>
+                                    {result.seasons.map((season:any) =>
                                         season.name ? (
                                             <SeasonDetail
                                                 imageUrl={season.poster_path}
@@ -298,11 +328,5 @@ const DefaultPresenter = ({ location: { pathname } }) => {
         </Container >
     );
 }
-
-DefaultPresenter.propTypes = {
-    result: PropTypes.object,
-    error: PropTypes.string,
-    loading: PropTypes.bool.isRequired
-};
 
 export default DefaultPresenter;

@@ -36,3 +36,4 @@ TV detail 이상하게 받아옴 - isMovie를 useState 로 처리했을때 기�
 한국어 검색이 안 되는 문제 - MultiSearch 사용, 해결 완료
 뒤로 가기 버튼 누를 시 Search 에 검색했던 결과가 남지 않는 문제
 뒤로 가기 버튼 호버시 아이콘 색 바꾸기
+Detail, Home, TV 의 any 타입들 수정 필요

@@ -49,7 +49,7 @@ color: rgba(255, 255, 255, 0.5);
 `;
 
 interface PosterProp {
-    id: number,
+    id: number | undefined,
     imageUrl: string,
     title: string,
     rating: number,

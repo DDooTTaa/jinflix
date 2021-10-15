@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { any } from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Section from "../../Components/Section";
@@ -11,11 +11,12 @@ import { moviesApi } from "../../api";
 const Container = styled.div`
 padding: 20px;`;
 
+
 const HomePresenter = () => {
-    const [nowPlaying, setNowPlaying] = useState([]);
-    const [upComing, setUpComing] = useState([]);
-    const [popular, setPopular] = useState([]);
-    const [error, setError] = useState("");
+    const [nowPlaying, setNowPlaying] = useState<any>([]);
+    const [upComing, setUpComing] = useState<any>([]);
+    const [popular, setPopular] = useState<any>([]);
+    const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState(true);
 
     const getMovieDataFromApi = async () => {
@@ -35,8 +36,6 @@ const HomePresenter = () => {
             setUpComing(upcoming);
             setPopular(popular);
         } catch (error) {
-            setError("Cant find data", error);
-            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -53,7 +52,7 @@ const HomePresenter = () => {
                 </Helmet>
                 {nowPlaying && nowPlaying.length > 0 && (
                     <Section title="Now Playing">
-                        {nowPlaying.map(movie => (
+                        {nowPlaying.map((movie: { id: number; poster_path: string; title: string; vote_average: number; release_date: string; }) => (
                             <Poster
                                 key={movie.id}
                                 id={movie.id}
@@ -68,7 +67,7 @@ const HomePresenter = () => {
                     </Section>)}
                 {upComing && upComing.length > 0 && (
                     <Section title="UpComing Movies">
-                        {upComing.map(movie => (
+                        {upComing.map((movie: { id: number; poster_path: string; title: string; vote_average: number; release_date: string; }) => (
                             <Poster
                                 key={movie.id}
                                 id={movie.id}
@@ -83,7 +82,7 @@ const HomePresenter = () => {
                     </Section>)}
                 {popular && popular.length > 0 && (
                     <Section title="Popular Movies">
-                        {popular.map(movie => (
+                        {popular.map((movie: { id: number; poster_path: string; title: string; vote_average: number; release_date: string; }) => (
                             <Poster
                                 key={movie.id}
                                 id={movie.id}
@@ -102,13 +101,5 @@ const HomePresenter = () => {
     );
 };
 
-
-HomePresenter.propTypes = {
-    nowPlaying: PropTypes.array,
-    popular: PropTypes.array,
-    upComing: PropTypes.array,
-    error: PropTypes.string,
-    loading: PropTypes.bool.isRequired
-};
 
 export default HomePresenter;

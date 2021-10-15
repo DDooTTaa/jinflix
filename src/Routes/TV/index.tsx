@@ -12,9 +12,9 @@ const Container = styled.div`
 padding: 20px;`;
 
 const TVPresenter = () => {
-    const [topRated, setTopRated] = useState();
-    const [airingToday, setAringToday] = useState();
-    const [popular, setPopular] = useState();
+    const [topRated, setTopRated] = useState<any>();
+    const [airingToday, setAringToday] = useState<any>();
+    const [popular, setPopular] = useState<any>();
     const [error, setError] = useState();
     const [loading, setLoading] = useState(true);
 
@@ -35,7 +35,6 @@ const TVPresenter = () => {
             setAringToday(airingToday);
             setPopular(popular);
         } catch (error) {
-            setError("Cant find data", error);
             console.log(error);
         } finally {
             setLoading(false);
@@ -52,45 +51,47 @@ const TVPresenter = () => {
             </Helmet>
             {topRated && topRated.length > 0
                 && <Section title="Top Rated">
-                    {topRated.map(show => (
+                    {topRated.map((show: { id:number; poster_path: string; name: string; vote_average: number; first_air_date: string; }) => (
                         <Poster
                             key={show.id}
                             id={show.id}
                             imageUrl={show.poster_path}
                             title={show.name}
                             rating={show.vote_average}
-                            year={show.first_air_date}
-                        // year={movie.release_date.substring(0,4)}
+                            year={show.first_air_date} 
+                            isMovie={false}                        // year={movie.release_date.substring(0,4)}
                         />
                     ))}
                 </Section>
             }
             {popular && popular.length > 0
                 && <Section title="Popular">
-                    {popular.map(show => (
+                    {popular.map((show: { id: number; poster_path: string; name: string; vote_average: number; first_air_date: string; }) => (
                         <Poster
                             key={show.id}
                             id={show.id}
                             imageUrl={show.poster_path}
                             title={show.name}
                             rating={show.vote_average}
-                            year={show.first_air_date}
-                        // year={movie.release_date.substring(0,4)}
+                            year={show.first_air_date} 
+                            isMovie={false}                       
+                             // year={movie.release_date.substring(0,4)}
                         />
                     ))}
                 </Section>
             }
             {airingToday && airingToday.length > 0
                 && <Section title="Airing Today">
-                    {airingToday.map(show => (
+                    {airingToday.map((show: { id: number; poster_path: string; name: string; vote_average: number; first_air_date: string; }) => (
                         <Poster
                             key={show.id}
                             id={show.id}
                             imageUrl={show.poster_path}
                             title={show.name}
                             rating={show.vote_average}
-                            year={show.first_air_date}
-                        // year={movie.release_date.substring(0,4)}
+                            year={show.first_air_date} 
+                            isMovie={false}                       
+                             // year={movie.release_date.substring(0,4)}
                         />
                     ))}
                 </Section>
@@ -99,12 +100,5 @@ const TVPresenter = () => {
         </Container>
     );
 }
-TVPresenter.propTypes = {
-    topRated: PropTypes.array,
-    popular: PropTypes.array,
-    airingToday: PropTypes.array,
-    error: PropTypes.string,
-    loading: PropTypes.bool.isRequired
-};
 
 export default TVPresenter;
