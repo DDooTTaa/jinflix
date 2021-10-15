@@ -27,13 +27,16 @@ React Study
 - [] 한국어 검색이 가능하도록 바꾸기
 - [] Detail 화면 뒤로 가기 버튼
 - [x] 훅으로 바꾸기
-- [] 타입스크립트로 바꾸기
+- [x] 타입스크립트로 바꾸기
 - [] 리덕스 이해하기
 
-- --ERROR
+- --Complete
 
 TV detail 이상하게 받아옴 - isMovie를 useState 로 처리했을때 기본값 변경, 해결 완료
 한국어 검색이 안 되는 문제 - MultiSearch 사용, 해결 완료
+
+------- Error
+
 뒤로 가기 버튼 누를 시 Search 에 검색했던 결과가 남지 않는 문제
 뒤로 가기 버튼 호버시 아이콘 색 바꾸기
 Detail, Home, TV 의 any 타입들 수정 필요
