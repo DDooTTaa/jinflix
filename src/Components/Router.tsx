@@ -20,7 +20,6 @@ export default () => (
                 <Route path="/movie/:id" component={Detail} />
                 <Route path="/tv/:id" component={Detail} />
                 <Redirect from="*" to="/" />
-
             </Switch>
         </>
     </Router>

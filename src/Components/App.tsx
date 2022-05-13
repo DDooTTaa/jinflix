@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import GlobalStyles from "./GlobalStyles";
 import Router from "./Router";
 

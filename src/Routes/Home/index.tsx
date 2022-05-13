@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes, { any } from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Section from "../../Components/Section";
@@ -16,7 +15,7 @@ const HomePresenter = () => {
     const [nowPlaying, setNowPlaying] = useState<any>([]);
     const [upComing, setUpComing] = useState<any>([]);
     const [popular, setPopular] = useState<any>([]);
-    const [error, setError] = useState<string>("");
+    const [error] = useState<string>("");
     const [loading, setLoading] = useState(true);
 
     const getMovieDataFromApi = async () => {

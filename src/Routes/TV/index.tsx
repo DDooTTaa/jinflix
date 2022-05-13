@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Section from "../../Components/Section";
@@ -15,7 +14,7 @@ const TVPresenter = () => {
     const [topRated, setTopRated] = useState<any>();
     const [airingToday, setAringToday] = useState<any>();
     const [popular, setPopular] = useState<any>();
-    const [error, setError] = useState();
+    const [error] = useState();
     const [loading, setLoading] = useState(true);
 
     const getTvDataFromApi = async () => {

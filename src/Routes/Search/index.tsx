@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import Loader from "../../Components/Loader";
@@ -29,10 +28,10 @@ const SearchPresenter = () => {
     const [results, setResults] = useState<any>();
 
 
-    const handlesubmit = (event: { preventDefault: () => void; }) => {
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         if (searchTerm !== "") {
-            searchByTerm()
+            searchByTerm();
         }
     };
 
@@ -68,7 +67,7 @@ const SearchPresenter = () => {
             <Helmet>
                 <title>Search | JinFlix</title>
             </Helmet>
-            <Form onSubmit={handlesubmit}>
+            <Form onSubmit={handleSubmit}>
                 <Input placeholder="TV 쇼와 영화를 검색하세요" type="text" value={searchTerm}
                     onChange={updateTerm}>
                 </Input>
